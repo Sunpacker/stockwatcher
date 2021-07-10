@@ -1,78 +1,105 @@
-/**
- * Learn more about createBottomTabNavigator:
- * https://reactnavigation.org/docs/bottom-tab-navigator
- */
+import { ComponentProps } from "react";
+import { useTranslation } from "react-i18next";
+import * as React from "react";
+import { Ionicons, Foundation } from "@expo/vector-icons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
 
-import { Ionicons } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import * as React from 'react';
+import Colors from "../constants/Colors";
+import useColorScheme from "../hooks/useColorScheme";
+import StocksScreen from "../screens/StocksScreen";
+import IndexesScreen from "../screens/IndexesScreen";
+import CurrenciesScreen from "../screens/CurrenciesScreen";
 
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+function TabBarIcon(props: {
+  ionic?: ComponentProps<typeof Ionicons>["name"];
+  foundation?: ComponentProps<typeof Foundation>["name"];
+  color: string;
+}) {
+  const { ionic, foundation } = props;
+  const size = 32;
+  const style = {
+    marginBottom: -4,
+  };
 
-const BottomTab = createBottomTabNavigator<BottomTabParamList>();
+  if (ionic) {
+    return <Ionicons name={ionic} size={size} style={style} {...props} />;
+  } else if (foundation) {
+    return <Foundation name={foundation} size={size} style={style} {...props} />;
+  }
+}
 
+const StocksStack = createStackNavigator();
+function TabOneNavigator() {
+  const { t } = useTranslation();
+
+  return (
+    <StocksStack.Navigator>
+      <StocksStack.Screen name="StocksScreen" component={StocksScreen} options={{ headerTitle: t("routes:stocks") }} />
+    </StocksStack.Navigator>
+  );
+}
+
+const IndexesStack = createStackNavigator();
+function TabTwoNavigator() {
+  const { t } = useTranslation();
+
+  return (
+    <IndexesStack.Navigator>
+      <IndexesStack.Screen
+        name="IndexesScreen"
+        component={IndexesScreen}
+        options={{ headerTitle: t("routes:indexes") }}
+      />
+    </IndexesStack.Navigator>
+  );
+}
+
+const CurrenciesStack = createStackNavigator();
+function CurrenciesNavigator() {
+  const { t } = useTranslation();
+
+  return (
+    <CurrenciesStack.Navigator>
+      <CurrenciesStack.Screen
+        name="CurrenciesScreen"
+        component={CurrenciesScreen}
+        options={{ headerTitle: t("routes:currencies") }}
+      />
+    </CurrenciesStack.Navigator>
+  );
+}
+
+const BottomTab = createBottomTabNavigator();
 export default function BottomTabNavigator() {
+  const { t } = useTranslation();
   const colorScheme = useColorScheme();
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName={t("routes:stocks")}
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
-        name="TabOne"
+        name={t("routes:stocks")}
         component={TabOneNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon ionic="trending-up" color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
+        name={t("routes:indexes")}
         component={TabTwoNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon foundation="graph-trend" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name={t("routes:currencies")}
+        component={CurrenciesNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon foundation="dollar" color={color} />,
         }}
       />
     </BottomTab.Navigator>
-  );
-}
-
-// You can explore the built-in icon families and icons on the web at:
-// https://icons.expo.fyi/
-function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']; color: string }) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
-}
-
-// Each tab has its own navigation stack, you can read more about this pattern here:
-// https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
-
-function TabOneNavigator() {
-  return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
-      />
-    </TabOneStack.Navigator>
-  );
-}
-
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
-
-function TabTwoNavigator() {
-  return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
-      />
-    </TabTwoStack.Navigator>
   );
 }
