@@ -1,33 +1,16 @@
-import { ComponentProps } from "react";
 import { useTranslation } from "react-i18next";
 import * as React from "react";
-import { Ionicons, Foundation } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
+import TabBarIcon from "../components/UI/TabBarIcon";
+import headerRight from "../components/UI/HeaderRight";
+
 import StocksScreen from "../screens/StocksScreen";
 import IndexesScreen from "../screens/IndexesScreen";
 import CurrenciesScreen from "../screens/CurrenciesScreen";
-
-function TabBarIcon(props: {
-  ionic?: ComponentProps<typeof Ionicons>["name"];
-  foundation?: ComponentProps<typeof Foundation>["name"];
-  color: string;
-}) {
-  const { ionic, foundation } = props;
-  const size = 32;
-  const style = {
-    marginBottom: -4,
-  };
-
-  if (ionic) {
-    return <Ionicons name={ionic} size={size} style={style} {...props} />;
-  } else if (foundation) {
-    return <Foundation name={foundation} size={size} style={style} {...props} />;
-  }
-}
 
 const StocksStack = createStackNavigator();
 function TabOneNavigator() {
@@ -35,7 +18,11 @@ function TabOneNavigator() {
 
   return (
     <StocksStack.Navigator>
-      <StocksStack.Screen name="StocksScreen" component={StocksScreen} options={{ headerTitle: t("routes:stocks") }} />
+      <StocksStack.Screen
+        name="Stocks"
+        component={StocksScreen}
+        options={{ headerTitle: t("routes:stocks"), headerRight }}
+      />
     </StocksStack.Navigator>
   );
 }
@@ -47,9 +34,9 @@ function TabTwoNavigator() {
   return (
     <IndexesStack.Navigator>
       <IndexesStack.Screen
-        name="IndexesScreen"
+        name="Indexes"
         component={IndexesScreen}
-        options={{ headerTitle: t("routes:indexes") }}
+        options={{ headerTitle: t("routes:indexes"), headerRight }}
       />
     </IndexesStack.Navigator>
   );
@@ -62,14 +49,15 @@ function CurrenciesNavigator() {
   return (
     <CurrenciesStack.Navigator>
       <CurrenciesStack.Screen
-        name="CurrenciesScreen"
+        name="Currencies"
         component={CurrenciesScreen}
-        options={{ headerTitle: t("routes:currencies") }}
+        options={{ headerTitle: t("routes:currencies"), headerRight }}
       />
     </CurrenciesStack.Navigator>
   );
 }
 
+// Root
 const BottomTab = createBottomTabNavigator();
 export default function BottomTabNavigator() {
   const { t } = useTranslation();

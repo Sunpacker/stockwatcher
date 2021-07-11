@@ -1,5 +1,6 @@
 {
   "stocks": "Stocks",
   "indexes": "Indexes",
-  "currencies": "Currencies"
+  "currencies": "Currencies",
+  "settings": "Settings"
 }

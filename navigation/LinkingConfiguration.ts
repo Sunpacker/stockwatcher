@@ -17,13 +17,11 @@ export default {
               StocksScreen: "stocks",
             },
           },
-
           Indexes: {
             screens: {
               IndexesScreen: "indexes",
             },
           },
-
           Currencies: {
             screens: {
               CurrenciesScreen: "currencies",
@@ -31,6 +29,13 @@ export default {
           },
         },
       },
+
+      Settings: {
+        screens: {
+          SettingsScreen: "settings",
+        },
+      },
+
       NotFound: "*",
     },
   },

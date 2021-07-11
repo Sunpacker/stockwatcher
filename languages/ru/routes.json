@@ -1,5 +1,6 @@
 {
   "stocks": "Акции",
   "indexes": "Индексы",
-  "currencies": "Валюты"
+  "currencies": "Валюты",
+  "settings": "Настройки"
 }
