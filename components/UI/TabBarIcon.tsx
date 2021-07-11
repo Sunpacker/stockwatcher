@@ -6,18 +6,15 @@ export default function TabBarIcon(props: {
   ionic?: ComponentProps<typeof Ionicons>["name"];
   foundation?: ComponentProps<typeof Foundation>["name"];
   color: string;
+  size?: number;
   style?: StyleProp<TextStyle>;
   onPress?: (event: GestureResponderEvent) => void;
 }) {
-  const { ionic, foundation, style } = props;
-  const size = 32;
-  const initStyles = {
-    marginBottom: -4,
-  };
+  const { ionic, foundation, size = 32, style = { marginBottom: -4 } } = props;
 
   if (ionic) {
-    return <Ionicons name={ionic} size={size} style={style ? style : initStyles} {...props} />;
+    return <Ionicons name={ionic} size={size} style={style} {...props} />;
   } else if (foundation) {
-    return <Foundation name={foundation} size={size} style={style ? style : initStyles} {...props} />;
+    return <Foundation name={foundation} size={size} style={style} {...props} />;
   }
 }
