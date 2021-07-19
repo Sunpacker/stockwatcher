@@ -1,5 +1,3 @@
 {
-  "stocks": "Акции",
-  "indexes": "Индексы",
-  "currencies": "Валюты"
+  "lang": "Language"
 }

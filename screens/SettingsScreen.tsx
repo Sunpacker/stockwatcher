@@ -1,18 +1,44 @@
 import i18next from "i18next";
-import * as React from "react";
-import { StyleSheet } from "react-native";
+import React from "react";
+import { Button, StyleSheet } from "react-native";
+import { useTranslation } from "react-i18next";
+
+import { LangEnum, getAppLang, setAppLang } from "../store/ducks/settings";
 
 import { Text, View } from "../components/Themed";
 
 export default function StocksScreen() {
-  const changeLang = lang => i18next.changeLanguage(lang);
+  const { t } = useTranslation();
+  const [lang, setLang] = React.useState<string | null>(LangEnum.en);
+
+  const changeLang = (lang: LangEnum) => {
+    i18next.changeLanguage(lang);
+    setLang(lang);
+    setAppLang(lang);
+  };
+
+  React.useEffect(() => {
+    const fetchSettings = async () => {
+      const langStore = await getAppLang();
+      setLang(langStore ? langStore : LangEnum.en);
+    };
+
+    fetchSettings();
+  }, []);
 
   return (
     <View style={s.container}>
-      <Text onPress={() => changeLang("ru")}>RU</Text>
-      <Text onPress={() => changeLang("en")}>EN</Text>
-
-      <Text style={s.title}>Settings</Text>
+      <Text style={s.groupTitle}>{t("lang")}</Text>
+      <View style={s.buttonGroup}>
+        {Object.keys(LangEnum).map((item: string, i: number) => (
+          <Button
+            key={i}
+            title={LangEnum[item]}
+            onPress={() => changeLang(LangEnum[item])}
+            disabled={!lang || lang === LangEnum[item]}
+          />
+        ))}
+      </View>
     </View>
   );
 }
@@ -23,13 +49,11 @@ const s = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
+  buttonGroup: {
+    display: "flex",
+    flexDirection: "row",
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+  groupTitle: {
+    marginBottom: 12,
   },
 });
