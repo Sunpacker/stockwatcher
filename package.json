@@ -2,7 +2,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "private": false,
   "scripts": {
-    "start": "expo start",
+    "dev": "expo start",
     "and": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.0",
+    "@react-native-async-storage/async-storage": "^1.15.5",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/bottom-tabs": "5.11.2",
     "@react-navigation/native": "~5.8.10",
