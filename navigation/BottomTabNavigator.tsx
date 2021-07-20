@@ -1,5 +1,5 @@
+import React from "react";
 import { useTranslation } from "react-i18next";
-import * as React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 
