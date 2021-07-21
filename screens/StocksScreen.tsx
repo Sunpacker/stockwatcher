@@ -1,26 +1,19 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { StyleSheet } from "react-native";
-import { fetchStocks, IStocksRequest } from "../api/rest/stocks";
+// import { useTranslation } from "react-i18next";
+import { ActivityIndicator, StyleSheet } from "react-native";
+
+import { IStocksRequest } from "../api/types";
 
 import { Text, View } from "../components/Themed";
+import { getStocks } from "../store/ducks/stocks";
 
 export default function StocksScreen() {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const [stocks, setStocks] = React.useState<IStocksRequest | null>(null);
-  const [error, setError] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     const fetch = async () => {
-      try {
-        const { data } = await fetchStocks();
-
-        if (!data?.count) setError("Ошибка при получении данных по тикеру.");
-        setStocks(data);
-      } catch (e) {
-        setError("Ошибка при получении данных.");
-        throw e;
-      }
+      setStocks(await getStocks());
     };
 
     fetch();
@@ -28,11 +21,7 @@ export default function StocksScreen() {
 
   return (
     <View style={s.container}>
-      {error ? (
-        <Text>{error}</Text>
-      ) : (
-        <Text style={s.title}>{stocks ? stocks.quotes[0].longname : `${t("loading")}...`}</Text>
-      )}
+      <Text style={s.title}>{stocks ? stocks.quotes[0].longname : <ActivityIndicator size="large" />}</Text>
     </View>
   );
 }

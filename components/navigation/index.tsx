@@ -4,11 +4,11 @@ import { useTranslation } from "react-i18next";
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import NotFoundScreen from "../screens/NotFoundScreen";
+import NotFoundScreen from "../../screens/NotFoundScreen";
 import BottomTabNavigator from "./BottomTabNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
 
-import SettingsScreen from "../screens/SettingsScreen";
+import SettingsScreen from "../../screens/SettingsScreen";
 
 const SettingsStack = createStackNavigator();
 function SettingsNavigator() {

@@ -3,14 +3,14 @@ import { useTranslation } from "react-i18next";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import Colors from "../constants/Colors";
-import useColorScheme from "../hooks/useColorScheme";
-import TabBarIcon from "../components/UI/TabBarIcon";
-import headerRight from "../components/UI/HeaderRight";
+import Colors from "../../constants/Colors";
+import useColorScheme from "../../hooks/useColorScheme";
+import TabBarIcon from "../components/../UI/TabBarIcon";
+import headerRight from "../components/../UI/HeaderRight";
 
-import StocksScreen from "../screens/StocksScreen";
-import IndexesScreen from "../screens/IndexesScreen";
-import CurrenciesScreen from "../screens/CurrenciesScreen";
+import StocksScreen from "../../screens/StocksScreen";
+import IndexesScreen from "../../screens/IndexesScreen";
+import CurrenciesScreen from "../../screens/CurrenciesScreen";
 
 const StocksStack = createStackNavigator();
 function TabOneNavigator() {
